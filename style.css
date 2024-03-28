@@ -6,12 +6,12 @@ body {
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: auto;
 }
 
 .container {
     text-align: center;
-    padding: 15px;
+    padding: 8px;
 }
 
 .page-title {
@@ -35,12 +35,12 @@ body {
     right: 10px;
 }
 
-body > img {
-    margin: 0 5px;
+body > img h1, h2, h3, h4 {
+    margin: 0 10px;
 }
 
 img {
-    max-height: 250px;
+    max-height: 200px;
 }
 
 .cajaDeConversion {
@@ -52,15 +52,16 @@ img {
     display: flex;
     text-align: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 #btn {
     display: flex;
-    font-size: 1.5vw;
-    margin: 1vw;
+    font-size: 1em;
+    margin: .5vw;
     border: 3px solid #378CE7;
     border-radius: 5px;
-    padding: 1vw;
+    padding: .5vw;
     background-color: #378CE7;
     transition: .5s;
     width: 10vw;
@@ -74,14 +75,38 @@ img {
     cursor: pointer;
 }
 
+select {
+    color: #378CE7;
+    font-size: 1em;
+    margin: .5vw;
+    border: 2px solid #378CE7;
+    border-radius: 5px;
+    padding: .5vw;
+    background-color: #DFF5FF;
+    transition: .5s;
+    width: 7vw;
+    align-items: center;
+    justify-content: center;
+}
+
 #btn-convertir{
     color: #ffffff;
-    font-size: 1.5vw;
-    margin: 1vw;
+    font-size: 1em;
+    margin: 0.5vw;
     border: 3px solid #378CE7;
     border-radius: 5px;
-    padding: 1vw;
+    padding: .5vw;
     background-color: #378CE7;
     transition: .5s;
-    width: 10vw;
+    width: 9vw;
+}
+#btn-convertir:hover
+{
+    background-color: #67C6E3;
+    scale: 1.1;
+    cursor: pointer;
+}
+
+#mensaje-total {
+    margin-top: 10px;
 }
