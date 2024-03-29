@@ -6,7 +6,7 @@ let valorUsd = 4000
 let valorEur = 4500
 let valorMxn = 250
 
-//Función para crear el cuadro del convertidor
+//Función para crear el boton convertir moneda
 function convertirMoneda(){
     if (!elementsCreated) { // Check if elements haven't been created yet
         const crearTitulo = document.createElement("h3");
@@ -14,7 +14,7 @@ function convertirMoneda(){
         //Crear lista desplegable de monedas
         const opcionesDeMonedas = ["COP", "USD", "EUR", "MXN"];
         const crearListaDeMonedas = document.createElement("select");
-        crearListaDeMonedas.setAttribute("id","lista-monedas");
+        crearListaDeMonedas.setAttribute("id","lista");
         for (let i = 0; i < opcionesDeMonedas.length; i++) {
             const listItem = document.createElement("option");
             listItem.textContent = opcionesDeMonedas[i];
@@ -23,9 +23,30 @@ function convertirMoneda(){
         conversion.appendChild(crearTitulo);
         conversion.appendChild(crearListaDeMonedas);
     }
-    // Mostrar elementos del cuadro convertidor
-    // Asignar valor a medidaDeCambio para calcular
+    // Asignar valor a medidaDeCambio para saber qué calucular
     medidaDeCambio = "moneda"
+    return medidaDeCambio
+}
+
+//Función para crear el boton convertir moneda
+function convertirTemperatura(){
+    if (!elementsCreated) { // Check if elements haven't been created yet
+        const crearTitulo = document.createElement("h3");
+        crearTitulo.textContent = "Selecione la temperatura para convertir";
+        //Crear lista desplegable de temperatura
+        const opcionesDeTemperatura = ["fahrenheit", "centígrados"];
+        const crearListaDeTemperaturas = document.createElement("select");
+        crearListaDeTemperaturas.setAttribute("id","lista");
+        for (let i = 0; i < opcionesDeTemperatura.length; i++) {
+            const listItem = document.createElement("option");
+            listItem.textContent = opcionesDeTemperatura[i];
+            crearListaDeTemperaturas.appendChild(listItem);
+        }
+        conversion.appendChild(crearTitulo);
+        conversion.appendChild(crearListaDeTemperaturas);
+    }
+    // Asignar valor a medidaDeCambio para saber qué calucular
+    medidaDeCambio = "temperatura"
     return medidaDeCambio
 }
 
@@ -55,25 +76,43 @@ function cuadroCantidadConvertir() {
 //Función con la logica para conversión
 function mostrarResultado() {
     let valorConvertido = 0;
+    const medidaDeConversion = document.getElementById("lista").value;
+    const valorConvertir = parseFloat(document.getElementById("valor-conversion").value);
+    // Verificar si el input está vacío
+    if (valorConvertir === "" || isNaN(valorConvertir)) {
+    alert("Por favor ingresa un valor válido en el campo de cantidad.");
+    return; // Termina la función si es un valor invalido
+    }
+    // BLOQUE CONVERSION DE MONEDA //
     if (medidaDeCambio == "moneda") {
-        const monedaDeCambio = document.getElementById("lista-monedas").value;
-        const valorConvertir = parseFloat(document.getElementById("valor-conversion").value);
-        // // console.log(monedaDeCambio)
-        // // console.log(typeof(monedaDeCambio))
-        if (monedaDeCambio == "COP") {
+        // // console.log(medidaDeConversion)
+        // // console.log(typeof(medidaDeConversion))
+        if (medidaDeConversion == "COP") {
             alert ("Selecciona una moneda diferente a COP");
             valorConvertido = valorConvertir * 1;
-        } else if (monedaDeCambio == "USD") {
+        } else if (medidaDeConversion == "USD") {
             valorConvertido = valorConvertir * valorUsd;
-        } else if (monedaDeCambio == "EUR") {
+        } else if (medidaDeConversion == "EUR") {
             valorConvertido = valorConvertir * valorEur;
-        } else if (monedaDeCambio == "MXN") {
+        } else if (medidaDeConversion == "MXN") {
             valorConvertido = valorConvertir * valorMxn;
         } else {}
         let total = valorConvertido;
         const mensajeTotal = document.createElement("h1");
         mensajeTotal.setAttribute("id","mensaje-total")
-        mensajeTotal.textContent = `$${valorConvertir} ${monedaDeCambio} equivalen a $${total} COP`;
+        mensajeTotal.textContent = `$${valorConvertir} ${medidaDeConversion} equivalen a $${total} COP`;
         conversion.appendChild(mensajeTotal);
-    }
+        //BLOQUE CONVERSION TEMPERATURA //
+    }  else if (medidaDeCambio == "temperatura") {
+            if (medidaDeConversion == "fahrenheit") {
+            valorConvertido = ((valorConvertir - 32) / 1.8).toFixed(2) + '°C';
+            } else if (medidaDeConversion == "centígrados") {
+            valorConvertido = ((valorConvertir * 9/5) +  32) + '°F';
+            } else {}
+            total = valorConvertido;
+            const mensajeTotal = document.createElement("h1");
+            mensajeTotal.setAttribute("id", "mensaje-total");
+            mensajeTotal.textContent = `${valorConvertir}° ${medidaDeConversion} es igual a ${valorConvertido}`;
+            conversion.appendChild(mensajeTotal);
+        }
 }
